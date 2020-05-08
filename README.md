@@ -53,3 +53,5 @@ $ npm test
 # License
 
 This software is released under the MIT License, see LICENSE.txt.
+
+**This service uses the API function of Government Statistics Center (e-Stat), but the content of the service is not guaranteed by the country.**
