@@ -1,10 +1,10 @@
 import axios from 'axios';
-import ENV from './env.json';
+require('dotenv').config();
 
 function getData(){
 
     this.createURL = function(id){
-        let APP_ID = ENV.APP_ID
+        let APP_ID = process.env.APP_ID
         let API_URL = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsData"
         let cdCat03 = id
         let cdCat04 = "0000"
