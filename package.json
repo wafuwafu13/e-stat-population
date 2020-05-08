@@ -1,7 +1,6 @@
 {
   "name": "e-stat-population",
   "version": "1.0.0",
-  "type": "module",
   "description": "get population data from a government statistics portal site called e-stat where you can view Japanese statistics",
   "main": "index.js",
   "jest": {
@@ -32,10 +31,10 @@
     "@babel/preset-env": "^7.9.6",
     "babel-jest": "^26.0.1",
     "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "dotenv": "^8.2.0",
     "jest": "^26.0.1"
   },
   "dependencies": {
-    "axios": "^0.19.2",
-    "dotenv": "^8.2.0"
+    "axios": "^0.19.2"
   }
 }
