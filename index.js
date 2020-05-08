@@ -1,9 +1,9 @@
-import axios from 'axios';
 require('dotenv').config();
+const http = require('http');
 
-function getData(){
+function getData() {
 
-    this.createURL = function(id){
+    this.createURL = function(id) {
         let APP_ID = process.env.APP_ID
         let API_URL = "http://api.e-stat.go.jp/rest/2.1/app/json/getStatsData"
         let cdCat03 = id
@@ -24,7 +24,7 @@ function getData(){
         return GET_URL
     }
 
-    this.createAgeList = function(){
+    this.createAgeList = function() {
         let ageList = [];
         for(let i = 0; i <= 98; i++){
             ageList.push({
@@ -35,45 +35,49 @@ function getData(){
         return ageList
     }
 
-    this.createPopulationList = function(res, list){
-        const jsonData = res.data.GET_STATS_DATA.STATISTICAL_DATA.DATA_INF;
+    this.createPopulationList = function(res, list) {
+        const jsonData = res.GET_STATS_DATA.STATISTICAL_DATA.DATA_INF;
         for(let i = 0; i <= 98; i++){
             list[i].y = Number(jsonData.VALUE[i].$)
         }
     }
 
-    this.sumPopulation = async function(){
-        let GET_URL = this.createURL("0000")
-        let sumPopulationList = this.createAgeList()
-
-        await axios.get(GET_URL)
-          .then(
-            res => {
-              this.createPopulationList(res, sumPopulationList)
-            }
-          ).catch(
-            error => {
-              console.log(error)
-            }
-          )
+    this.communication = function(GET_URL) {
+      return new Promise((resolve) => {
+        const req = http.request(GET_URL, res => {
+            let body = '';
+            res.setEncoding('utf8');
+            res.on('data', chunk => {
+                body += chunk;
+            })
         
-        return sumPopulationList
+            res.on('end', (res) => {
+                res = JSON.parse(body);
+                resolve(res)
+            });
+        })
+        req.end();
+      })
+    }
+
+    this.sumPopulation = async function() {
+      let GET_URL = this.createURL("0000")
+      let sumPopulationList = this.createAgeList()
+
+      let res = await this.communication(GET_URL)
+
+      this.createPopulationList(res, sumPopulationList)
+
+      return sumPopulationList
     }
 
     this.malePopulation = async function() {
         let GET_URL = this.createURL("0010")
         let malePopulationList = this.createAgeList()
 
-        await axios.get(GET_URL)
-          .then(
-            res => {
-              this.createPopulationList(res, malePopulationList)
-            }
-          ).catch(
-            error => {
-              console.log(error)
-            }
-          )
+        let res = await this.communication(GET_URL)
+
+        this.createPopulationList(res, malePopulationList)
         
         return malePopulationList
     }
@@ -82,17 +86,10 @@ function getData(){
         let GET_URL = this.createURL("0020")
         let femalePopulationList = this.createAgeList()
 
-        await axios.get(GET_URL)
-          .then(
-            res => {
-              this.createPopulationList(res, femalePopulationList)
-            }
-          ).catch(
-            error => {
-              console.log(error)
-            }
-          )
-        
+        let res = await this.communication(GET_URL)
+
+        this.createPopulationList(res, femalePopulationList)
+
         return femalePopulationList
     }
 }
