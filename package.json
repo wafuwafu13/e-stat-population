@@ -1,8 +1,8 @@
 {
-  "name": "e-stat",
+  "name": "e-stat-population",
   "version": "1.0.0",
   "type": "module",
-  "description": "get data from a government statistics portal site called e-stat where you can view Japanese statistics",
+  "description": "get population data from a government statistics portal site called e-stat where you can view Japanese statistics",
   "main": "index.js",
   "jest": {
     "verbose": true,
