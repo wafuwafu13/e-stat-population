@@ -1,0 +1,40 @@
+{
+  "name": "e-stat",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "get data from a government statistics portal site called e-stat where you can view Japanese statistics",
+  "main": "index.js",
+  "jest": {
+    "verbose": true,
+    "transformIgnorePatterns": [
+      "node_modules"
+    ]
+  },
+  "scripts": {
+    "test": "NODE_ENV=test jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/wafuwafu13/e-stat.git"
+  },
+  "keywords": [
+    "e-stat",
+    "chart"
+  ],
+  "author": "Tagawa Hirotaka <wafuwafumariobaske@gmail.com> (https://tagawa.netlify.app/)",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/wafuwafu13/e-stat/issues"
+  },
+  "homepage": "https://github.com/wafuwafu13/e-stat#readme",
+  "devDependencies": {
+    "@babel/core": "^7.9.6",
+    "@babel/preset-env": "^7.9.6",
+    "babel-jest": "^26.0.1",
+    "babel-plugin-transform-es2015-modules-commonjs": "^6.26.2",
+    "jest": "^26.0.1"
+  },
+  "dependencies": {
+    "axios": "^0.19.2"
+  }
+}
